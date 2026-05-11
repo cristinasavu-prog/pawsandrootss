@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paws & Roots — Memorial Garden</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #F5F0E8;
+      --ink: #1A1410;
+      --accent: #D4C9B5; 
+      --muted: #8C7B6B;
+      --card: #EDE7D9;
+      --line: #D4C9B5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      transition: padding .3s;
+    }
+    nav.scrolled { padding: .9rem 4rem; }
+
+    .logo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.3rem; font-weight: 900; letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--ink); font-size: .8rem;
+      letter-spacing: .06em; text-transform: uppercase; font-weight: 600;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px; background: var(--muted); transition: width .3s;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+      padding: 8rem 4rem 4rem; gap: 4rem;
+      max-width: 1400px; margin: 0 auto;
+    }
+    .hero-tag {
+      display: inline-block; font-size: .7rem; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--muted);
+      border: 1px solid var(--accent); padding: .4rem .8rem;
+      margin-bottom: 1.5rem; font-weight: 700;
+    }
+    .hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.1; font-weight: 900;
+      text-transform: uppercase;
+    }
+    .hero-title em { color: var(--muted); font-style: normal; border-bottom: 5px solid var(--accent); }
+    .hero-sub { margin-top: 1.5rem; max-width: 45ch; color: var(--muted); line-height: 1.7; font-size: 1.1rem; }
+    
+    .hero-actions { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+    .btn-primary { background: var(--ink); color: var(--bg); border: none; padding: 1rem 2rem; font-size: .8rem; text-transform: uppercase; cursor: pointer; transition: .3s; font-family: 'Montserrat', sans-serif; font-weight: 700; }
+    .btn-primary:hover { background: var(--muted); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); padding: 1rem 2rem; font-size: .8rem; text-transform: uppercase; cursor: pointer; transition: .3s; font-family: 'Montserrat', sans-serif; font-weight: 700; }
+    .btn-ghost:hover { background: var(--accent); transform: translateY(-2px); }
+
+    .hero-visual { position: relative; height: 500px; width: 100%; }
+    .hero-card { position: absolute; border-radius: 4px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+    .hero-card-main { width: 80%; height: 90%; right: 0; bottom: 0; background: var(--card); display: flex; align-items: center; justify-content: center; font-size: 5rem; }
+    .hero-card-accent { width: 45%; height: 50%; left: 0; top: 0; background: var(--accent); color: var(--ink); display: flex; align-items: center; justify-content: center; font-size: 3rem; z-index: 2; }
+    .hero-stat { position: absolute; bottom: 40px; left: -20px; background: var(--ink); color: var(--bg); padding: 1.5rem; z-index: 3; min-width: 200px; }
+
+    /* ── SERVIZI ── */
+    #servizi { padding: 8rem 4rem; max-width: 1200px; margin: 0 auto; }
+    .services-grid { 
+      display: grid; 
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 30px; 
+    }
+    
+    .story-card { 
+      grid-column: span 2; 
+      display: flex; 
+      gap: 3rem; 
+      align-items: center; 
+      background: #fff; 
+      padding: 3rem;
+      border: 1px solid var(--line);
+    }
+    .story-img { width: 350px; height: 350px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
+    .story-content h3 { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 900; margin-bottom: 1.5rem; color: var(--muted); text-transform: uppercase; }
+    .story-content p { font-size: 1rem; line-height: 1.8; color: var(--muted); font-style: italic; }
+
+    .service-card { 
+      background: var(--card); 
+      padding: 3rem; 
+      border: 1px solid var(--line); 
+      transition: .3s ease; 
+    }
+    .service-card:hover { transform: translateY(-10px); background: #fff; border-color: var(--muted); }
+    .service-card h3 { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; text-transform: uppercase; }
+    .service-desc { font-size: 1rem; line-height: 1.6; color: var(--muted); }
+
+    /* ── CHI SIAMO ── */
+    #chi-siamo { padding: 8rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; border-top: 1px solid var(--line); max-width: 1200px; margin: 0 auto; }
+    .about-visual { background: var(--card); padding: 4rem; border-radius: 4px; text-align: center; }
+    .section-title { font-family: 'Montserrat', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem; font-size: 1.05rem; }
+    
+    /* Modificata lista nomi per essere uno sotto l'altro */
+    .founder-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 20px; }
+    .founder-list li { font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 0.95rem; display: flex; align-items: center; gap: 15px; letter-spacing: 0.05em; }
+    .founder-list li::before { content: '✦'; color: var(--muted); font-size: 1.2rem; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: var(--bg); padding: 5rem 4rem; text-align: center; }
+    .footer-logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.5rem; letter-spacing: 0.2em; margin-bottom: 1rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      nav { padding: 1.2rem 2rem; }
+      #hero, #chi-siamo { grid-template-columns: 1fr; gap: 3rem; padding: 6rem 2rem; }
+      #servizi { padding: 4rem 2rem; }
+      .story-card { flex-direction: column; text-align: center; padding: 2rem; }
+      .story-img { width: 100%; height: 300px; }
+    }
+
+    @media (max-width: 768px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .story-card { grid-column: span 1; }
+      .nav-links { display: none; }
+      .hero-title { font-size: 2.8rem; }
+      .hero-visual { height: 350px; }
+      .hero-stat { position: relative; left: 0; bottom: 0; margin-top: 20px; width: 100%; text-align: center; }
+    }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="logo-text">PAWS & ROOTS</div>
+  <ul class="nav-links">
+    <li><a href="#servizi">Il Progetto</a></li>
+    <li><a href="#chi-siamo">Chi Siamo</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-text reveal">
+    <span class="hero-tag">✦ Memorial Garden • Stradella</span>
+    <h1 class="hero-title">Idee che diventano <em>radici</em></h1>
+    <p class="hero-sub">Diamo un posto speciale agli animali domestici che non ci sono più. Un parco del ricordo dove la natura custodisce la loro memoria.</p>
+    <div class="hero-actions">
+      <button class="btn-primary">Scopri il Progetto</button>
+      <button class="btn-ghost">Guarda la Mappa</button>
+    </div>
+  </div>
+  <div class="hero-visual reveal">
+    <div class="hero-card hero-card-main">🌳</div>
+    <div class="hero-card hero-card-accent">🐾</div>
+    <div class="hero-stat">
+      <strong style="font-family: Montserrat; font-size: 2rem; display: block;">45%</strong>
+      <span style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.1em;">Delle famiglie ha un animale</span>
+    </div>
+  </div>
+</section>
+
+<section id="servizi">
+  <div class="services-grid">
+    <div class="story-card reveal">
+      <img src="image.jpg" alt="Snoopy" class="story-img">
+      <div class="story-content">
+        <h3>Ciao, sono Snoopy</h3>
+        <p>
+          "Snoopy era il mio cane, il mio compagno di ogni giorno. Con lui condividevo una routine fatta di cose semplici: le passeggiate, le coccole sul divano... Quando si è ammalato, vederlo perdere le forze è stato uno dei momenti più difficili. La sua assenza mi ha fatto capire quanto gli animali diventino famiglia. Da questo amore e dal vuoto lasciato dalla sua perdita, nasce Paws & Roots."
+        </p>
+      </div>
+    </div>
+
+    <div class="service-card reveal">
+      <h3>🌳 Memorial Tree</h3>
+      <p class="service-desc">Ogni animale viene ricordato attraverso una pianta dedicata scelta dal padrone. Un modo per trasformare il dolore in nuova vita che cresce nel tempo.</p>
+    </div>
+
+    <div class="service-card reveal">
+      <h3>📱 QR-Code Story</h3>
+      <p class="service-desc">Accanto ad ogni albero, una targa con QR-Code permetterà di accedere alla pagina digitale dell'animale, con le sue foto e la sua storia unica.</p>
+    </div>
+  </div>
+</section>
+
+<section id="chi-siamo">
+  <div class="about-visual reveal">
+    <h2 style="font-family: 'Montserrat'; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--muted); font-weight: 900; line-height: 0.9;">THE<br>FOUNDERS</h2>
+    <div style="width: 60px; height: 3px; background: var(--accent); margin: 2.5rem auto;"></div>
+    <p style="color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; font-size: 0.8rem; font-weight: 700;">Since 2026</p>
+  </div>
+  <div class="about-text reveal">
+    <p style="text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.2em; font-weight: 700; color: var(--muted); margin-bottom: 0.5rem;">Il nostro obiettivo</p>
+    <h2 class="section-title">Chi Siamo</h2>
+    <p>Siamo il gruppo <strong>"The Founders"</strong>. Paws & Roots nasce da un’idea semplice: dare un posto speciale agli animali che non ci sono più.</p>
+    
+    <ul class="founder-list">
+      <li>Tannu Kanwar Shekhawat</li>
+      <li>Aya En Nimi</li>
+      <li>Cristina Ionela Savu</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">PAWS & ROOTS</div>
+  <p style="font-size: 0.8rem; opacity: 0.5; letter-spacing: 0.05em;">© 2026 • Progetto ideato da Tannu, Aya e Cristina. <br> Ogni vita merita un fiore.</p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
